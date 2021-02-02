@@ -29,6 +29,37 @@ export class VideoItem{
     }
  }
 
+ /**
+ * VideoItem Interface for @interface VideoSearch
+ */
+
+type VideoSearchItemTypes = 'kind' | 'etag' | 'id' | 'snippet';
+
+interface VideoSearchInterface{
+    kind: string;
+    etag: string;
+    id: {kind:string, videoId:string};
+    snippet: Snippet
+}
+
+export class VideoSearchItem{
+    kind: string = '';
+    etag: string = '';
+    id: {kind:string, videoId:string} = {kind:'', videoId:''};
+    snippet: Snippet = new Snippet();
+
+    constructor(newPageInfo?: VideoSearchInterface){
+        this.kind = this.assignVariable('kind', newPageInfo, this.kind);
+        this.etag = this.assignVariable('etag', newPageInfo, this.etag);
+        this.id = {...this.assignVariable('id', newPageInfo, this.id)};
+        this.snippet = new Snippet(this.assignVariable('id', newPageInfo, this.id));
+    }
+
+    private assignVariable(key:VideoSearchItemTypes, object:VideoSearchInterface | undefined, defaultVal: any){
+        return object ? (object[key] ? object[key] : defaultVal) : defaultVal;
+    }
+ }
+
 /**
  * Snippet Interface for @interface VideoItem
  */

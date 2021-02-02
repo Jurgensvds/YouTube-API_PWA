@@ -1,5 +1,38 @@
 <app-main-header></app-main-header>
 
 <div class="mainContent">
+
+    <section class="tabsContent">
+        <app-history-tab *ngIf="tabNav.activeTab === 'history'"></app-history-tab>
+        <app-home-tab *ngIf="tabNav.activeTab === 'home'"></app-home-tab>
+        <app-favourites-tab *ngIf="tabNav.activeTab === 'favourites'"></app-favourites-tab>
+    </section>
     
+    <!--Bottom Tab Navigation-->
+    <section class="tabs-selector">
+        <div class="tabsContainer">
+            <div (click)="setNav('history')" class="tab tab1">
+                <mat-icon>history</mat-icon>
+                <span>History</span>
+            </div>
+            <div (click)="setNav('home')" class="tab tab2">
+                <mat-icon class="material-icons-outlined">home</mat-icon>
+                <span>Home</span>
+            </div>
+            <div (click)="setNav('favourites')" class="tab tab3">
+                <mat-icon>star_border</mat-icon>
+                <span>Favourite</span>
+            </div>
+
+            <div 
+                class="highlightSelector" 
+                [style.left]="
+                    tabNav.activeTab === 'history' ? '0px' :
+                    tabNav.activeTab === 'home' ? '33.33%' :
+                    tabNav.activeTab === 'favourites' ? '66.66%' : '0px'
+                ">
+                <div class="colorBlock"></div>
+            </div>
+        </div>
+    </section>
 </div>

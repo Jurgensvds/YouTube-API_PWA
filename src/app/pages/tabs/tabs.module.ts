@@ -7,6 +7,7 @@ import { HomeTabComponent } from './home-tab/home-tab.component';
 import { FavouritesTabComponent } from './favourites-tab/favourites-tab.component';
 import { HistoryTabComponent } from './history-tab/history-tab.component';
 import { ComponentsModule } from '@components/components.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ComponentsModule } from '@components/components.module';
   imports: [
     CommonModule,
     TabsRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    MatIconModule
   ]
 })
 export class TabsModule { }

@@ -1,1 +1,9 @@
-<p>home-tab works!</p>
+<section class="homeTabSection">
+    <div class="videoSection">
+        <ng-container *ngFor="let item of videos.items">
+            <app-main-video-viewer
+                [video]="item"
+            ></app-main-video-viewer>
+        </ng-container>
+    </div>
+</section>

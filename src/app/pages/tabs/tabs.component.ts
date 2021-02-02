@@ -32,7 +32,6 @@ export class TabsComponent implements OnInit {
   showSplash:boolean = true;
 
   constructor(
-    private youTubeService: YouTubeService,
     public tabNav: TabNavService
   ) { }
 

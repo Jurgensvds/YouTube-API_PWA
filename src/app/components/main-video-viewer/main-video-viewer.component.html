@@ -1,3 +1,12 @@
-<div class="videoViewer">
-
+<div (window:resize)="setThumbnailHeight()" class="videoViewer">
+    <div #thumbnail class="thumbnail">
+        <img [src]="mainVideo.getThumbnail(3)" alt="">
+    </div>
+    <div class="videoDetails">
+        <div class="leftContent">
+            <h4>{{mainVideo.snippet.title}}</h4>
+            <span>{{mainVideo.statistics.viewCount | formatViews:'1.0-1'}} Views</span>
+        </div>
+        <div class="rightContent"></div>
+    </div>
 </div>

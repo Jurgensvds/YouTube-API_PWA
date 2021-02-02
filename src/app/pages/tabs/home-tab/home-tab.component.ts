@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Videos } from '@interfaces/youTube-api/videos-interface';
+import { YouTubeService } from '@services/youTube/you-tube.service';
 
 @Component({
   selector: 'app-home-tab',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeTabComponent implements OnInit {
 
-  constructor() { }
+  videos: Videos = new Videos();
+
+  constructor(
+    private youTubeService: YouTubeService
+  ) { }
 
   ngOnInit(): void {
+    this.youTubeService.getMostPopularVideos().then((result) => {
+      this.videos = new Videos(result);
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
 }

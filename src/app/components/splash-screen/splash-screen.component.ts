@@ -30,7 +30,6 @@ export class SplashScreenComponent implements OnInit {
     setTimeout(() => {
       this.animationItem?.play()
     }, 1000);
-    console.log(animationItem);
   }
 
   animationDone(){

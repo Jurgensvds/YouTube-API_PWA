@@ -2,30 +2,54 @@
  * VideoItem Interface for @interface Videos
  */
 
-type VideoItemTypes = 'kind' | 'etag' | 'id' | 'snippet';
+type VideoItemTypes = 'kind' | 'etag' | 'id' | 'player' | 'snippet' | 'statistics' | 'contentDetails';
 
 interface VideoItemInterface{
     kind: string;
     etag: string;
     id: string;
-    snippet: Snippet
+    player: {embedHtml:string};
+    snippet: Snippet;
+    statistics: Statistics;
+    contentDetails: ContentDetails;
 }
 
 export class VideoItem{
     kind: string = '';
     etag: string = '';
     id: string = '';
+    player: {embedHtml:string} = {embedHtml:''};
     snippet: Snippet = new Snippet();
+    statistics: Statistics = new Statistics();
+    contentDetails: ContentDetails = new ContentDetails();
 
     constructor(newPageInfo?: VideoItemInterface){
         this.kind = this.assignVariable('kind', newPageInfo, this.kind);
         this.etag = this.assignVariable('etag', newPageInfo, this.etag);
         this.id = this.assignVariable('id', newPageInfo, this.id);
+        this.player = {...this.assignVariable('player', newPageInfo, this.player)};
         this.snippet = new Snippet(this.assignVariable('snippet', newPageInfo, this.snippet));
+        this.statistics = new Statistics(this.assignVariable('statistics', newPageInfo, this.statistics));
+        this.contentDetails = new ContentDetails(this.assignVariable('contentDetails', newPageInfo, this.contentDetails));
     }
 
     private assignVariable(key:VideoItemTypes, object:VideoItemInterface | undefined, defaultVal: any){
         return object ? (object[key] ? object[key] : defaultVal) : defaultVal;
+    }
+
+    getVideoUrl(){
+        return `https://www.youtube.com/watch?v=${this.id}`
+    }
+
+    getThumbnail(size:number = 5){
+        const t = this.snippet.thumbnails;
+        return (
+            t.maxres.url !== '' && size === 5 ? t.maxres.url :
+            t.standard.url !== '' && size >= 4 ? t.standard.url :
+            t.high.url !== '' && size >= 3 ? t.high.url :
+            t.medium.url !== '' && size >= 2 ? t.medium.url :
+            t.default.url !== '' && size >= 1 ? t.default.url : '../../../assets/mainLogo.svg'
+        );
     }
  }
 
@@ -33,33 +57,43 @@ export class VideoItem{
  * VideoItem Interface for @interface VideoSearch
  */
 
-type VideoSearchItemTypes = 'kind' | 'etag' | 'id' | 'snippet' | 'statistics';
+type VideoSearchItemTypes = 'kind' | 'etag' | 'id' | 'player' | 'snippet' | 'statistics' | 'contentDetails';
 
 interface VideoSearchInterface{
     kind: string;
     etag: string;
     id: {kind:string, videoId:string};
+    player: {embedHtml:string};
     snippet: Snippet;
     statistics: Statistics;
+    contentDetails: ContentDetails;
 }
 
 export class VideoSearchItem{
     kind: string = '';
     etag: string = '';
     id: {kind:string, videoId:string} = {kind:'', videoId:''};
+    player: {embedHtml:string} = {embedHtml:''};
     snippet: Snippet = new Snippet();
     statistics: Statistics = new Statistics();
+    contentDetails: ContentDetails = new ContentDetails();
 
     constructor(newPageInfo?: VideoSearchInterface){
         this.kind = this.assignVariable('kind', newPageInfo, this.kind);
         this.etag = this.assignVariable('etag', newPageInfo, this.etag);
         this.id = {...this.assignVariable('id', newPageInfo, this.id)};
+        this.player = {...this.assignVariable('player', newPageInfo, this.player)};
         this.snippet = new Snippet(this.assignVariable('snippet', newPageInfo, this.snippet));
         this.statistics = new Statistics(this.assignVariable('statistics', newPageInfo, this.statistics));
+        this.contentDetails = new ContentDetails(this.assignVariable('contentDetails', newPageInfo, this.contentDetails));
     }
 
     private assignVariable(key:VideoSearchItemTypes, object:VideoSearchInterface | undefined, defaultVal: any){
         return object ? (object[key] ? object[key] : defaultVal) : defaultVal;
+    }
+
+    getVideoUrl(){
+        return `https://www.youtube.com/watch?v=${this.id.videoId}`
     }
  }
 
@@ -104,7 +138,7 @@ export class VideoSearchItem{
         medium: new Thumbnail(), 
         high: new Thumbnail(), 
         standard: new Thumbnail(), 
-        maxres: new Thumbnail
+        maxres: new Thumbnail()
     };
     channelTitle: string = '';
     categoryId: string = '';
@@ -160,6 +194,34 @@ export class Statistics{
     }
 
     private assignVariable(key:StatisticsTypes, object:StatisticsInterface | undefined, defaultVal: any){
+        return object ? (object[key] ? object[key] : defaultVal) : defaultVal;
+    }
+}
+
+/**
+ * Statistics Interface for @interface VideoItem
+ */
+
+type ContentDetailsTypes = 'duration' | 'dimension' | 'definition';
+
+interface ContentDetailsInterface{
+    duration: string;
+    dimension: string;
+    definition: string;
+}
+
+export class ContentDetails{
+    duration: string = '';
+    dimension: string = '';
+    definition: string = '';
+
+    constructor(newPageInfo?: ContentDetailsInterface){
+        this.duration = this.assignVariable('duration', newPageInfo, this.duration);
+        this.dimension = this.assignVariable('dimension', newPageInfo, this.dimension);
+        this.definition = this.assignVariable('definition', newPageInfo, this.definition);
+    }
+
+    private assignVariable(key:ContentDetailsTypes, object:ContentDetailsInterface | undefined, defaultVal: any){
         return object ? (object[key] ? object[key] : defaultVal) : defaultVal;
     }
 }

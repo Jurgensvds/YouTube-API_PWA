@@ -21,7 +21,7 @@ export class VideoItem{
         this.kind = this.assignVariable('kind', newPageInfo, this.kind);
         this.etag = this.assignVariable('etag', newPageInfo, this.etag);
         this.id = this.assignVariable('id', newPageInfo, this.id);
-        this.snippet = new Snippet(this.assignVariable('id', newPageInfo, this.id));
+        this.snippet = new Snippet(this.assignVariable('snippet', newPageInfo, this.snippet));
     }
 
     private assignVariable(key:VideoItemTypes, object:VideoItemInterface | undefined, defaultVal: any){
@@ -33,13 +33,14 @@ export class VideoItem{
  * VideoItem Interface for @interface VideoSearch
  */
 
-type VideoSearchItemTypes = 'kind' | 'etag' | 'id' | 'snippet';
+type VideoSearchItemTypes = 'kind' | 'etag' | 'id' | 'snippet' | 'statistics';
 
 interface VideoSearchInterface{
     kind: string;
     etag: string;
     id: {kind:string, videoId:string};
-    snippet: Snippet
+    snippet: Snippet;
+    statistics: Statistics;
 }
 
 export class VideoSearchItem{
@@ -47,12 +48,14 @@ export class VideoSearchItem{
     etag: string = '';
     id: {kind:string, videoId:string} = {kind:'', videoId:''};
     snippet: Snippet = new Snippet();
+    statistics: Statistics = new Statistics();
 
     constructor(newPageInfo?: VideoSearchInterface){
         this.kind = this.assignVariable('kind', newPageInfo, this.kind);
         this.etag = this.assignVariable('etag', newPageInfo, this.etag);
         this.id = {...this.assignVariable('id', newPageInfo, this.id)};
-        this.snippet = new Snippet(this.assignVariable('id', newPageInfo, this.id));
+        this.snippet = new Snippet(this.assignVariable('snippet', newPageInfo, this.snippet));
+        this.statistics = new Statistics(this.assignVariable('statistics', newPageInfo, this.statistics));
     }
 
     private assignVariable(key:VideoSearchItemTypes, object:VideoSearchInterface | undefined, defaultVal: any){
@@ -64,7 +67,7 @@ export class VideoSearchItem{
  * Snippet Interface for @interface VideoItem
  */
 
- type SnippetTypes = 'publishedAt' | 'channelId' | 'title' | 'description' | 'thumbnails' | 'channelTitle' | 'categoryId' | 'liveBroadcastContent' | 'localized';
+ type SnippetTypes = 'publishedAt' | 'channelId' | 'title' | 'description' | 'thumbnails' | 'channelTitle' | 'categoryId' | 'tags' | 'liveBroadcastContent' | 'localized';
 
  interface SnippetInterface{
     publishedAt: string;
@@ -80,6 +83,7 @@ export class VideoSearchItem{
     }
     channelTitle: string;
     categoryId: string;
+    tags: string;
     liveBroadcastContent: 'live' | 'none' | 'upcoming';
     localized: Localized;
  }
@@ -104,6 +108,7 @@ export class VideoSearchItem{
     };
     channelTitle: string = '';
     categoryId: string = '';
+    tags: string = ''
     liveBroadcastContent: 'live' | 'none' | 'upcoming' = 'none';
     localized: Localized = new Localized();
 
@@ -115,6 +120,7 @@ export class VideoSearchItem{
         this.thumbnails = {...this.assignVariable('thumbnails', newPageInfo, this.thumbnails)};
         this.channelTitle = this.assignVariable('channelTitle', newPageInfo, this.channelTitle);
         this.categoryId = this.assignVariable('categoryId', newPageInfo, this.categoryId);
+        this.tags = this.assignVariable('tags', newPageInfo, this.tags);
         this.liveBroadcastContent = this.assignVariable('liveBroadcastContent', newPageInfo, this.liveBroadcastContent);
         this.localized = new Localized(this.assignVariable('localized', newPageInfo, this.localized));
     }
@@ -123,6 +129,40 @@ export class VideoSearchItem{
         return object ? (object[key] ? object[key] : defaultVal) : defaultVal;
     }
  }
+
+ /**
+ * Statistics Interface for @interface VideoItem
+ */
+
+type StatisticsTypes = 'viewCount' | 'likeCount' | 'dislikeCount' | 'favoriteCount' | 'commentCount';
+
+interface StatisticsInterface{
+    viewCount: string;
+    likeCount: string;
+    dislikeCount: string;
+    favoriteCount: string;
+    commentCount: string;
+}
+
+export class Statistics{
+    viewCount: string = '';
+    likeCount: string = '';
+    dislikeCount: string = '';
+    favoriteCount: string = '';
+    commentCount: string = '';
+
+    constructor(newPageInfo?: StatisticsInterface){
+        this.viewCount = this.assignVariable('viewCount', newPageInfo, this.viewCount);
+        this.likeCount = this.assignVariable('likeCount', newPageInfo, this.likeCount);
+        this.dislikeCount = this.assignVariable('dislikeCount', newPageInfo, this.dislikeCount);
+        this.favoriteCount = this.assignVariable('favoriteCount', newPageInfo, this.favoriteCount);
+        this.commentCount = this.assignVariable('commentCount', newPageInfo, this.commentCount);
+    }
+
+    private assignVariable(key:StatisticsTypes, object:StatisticsInterface | undefined, defaultVal: any){
+        return object ? (object[key] ? object[key] : defaultVal) : defaultVal;
+    }
+}
 
 /**
  * Thumbnail Interface for @interface Snippet

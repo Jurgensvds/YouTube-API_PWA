@@ -36,3 +36,10 @@
         </div>
     </section>
 </div>
+
+<app-splash-screen
+    [@outAnimation]
+    *ngIf="showSplash"
+    (removeSplash)="splashDone()"
+    [playAnimation]="loaded"
+></app-splash-screen>

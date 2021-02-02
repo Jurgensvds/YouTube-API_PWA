@@ -1,0 +1,11 @@
+{
+    "shortname" : "YouTube API",
+    "name" : "August Task 3 - Jurgens YouTube API",
+    "start_url": "/",
+
+    "theme_color": "#F56639",
+    "background-color": "#1E252B",
+
+    "display": "standalone",
+    "orientation": "portrait"
+}

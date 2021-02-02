@@ -1,0 +1,19 @@
+header.mainHeader{
+    padding:10px;
+    background-color: var(--main-background-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1{
+        margin:0px;
+        color: var(--primary-color);
+    }
+    .searchBox{
+        mat-icon{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--main-text-color);
+        }
+    }
+}

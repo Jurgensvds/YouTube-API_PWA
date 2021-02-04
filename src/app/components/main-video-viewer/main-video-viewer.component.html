@@ -1,4 +1,4 @@
-<div (window:resize)="setThumbnailHeight()" class="videoViewer">
+<div (window:resize)="setThumbnailHeight()" (click)="select.emit()" class="videoViewer">
     <div #thumbnail class="thumbnail">
         <img [src]="mainVideo.getThumbnail(3)" alt="">
     </div>

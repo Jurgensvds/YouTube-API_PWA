@@ -2,7 +2,10 @@
     <div class="videoSection">
         <ng-container *ngFor="let item of videos.items">
             <app-main-video-viewer
+                [@outAnimation]
+                *ngIf="item.active"
                 [video]="item"
+                (select)="selectVideo(item)"
             ></app-main-video-viewer>
         </ng-container>
     </div>

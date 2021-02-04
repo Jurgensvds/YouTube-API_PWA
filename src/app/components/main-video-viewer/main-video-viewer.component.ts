@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { VideoItem } from '@interfaces/youTube-api/video-items-interface';
 
 @Component({
@@ -15,6 +15,7 @@ export class MainVideoViewerComponent implements OnInit {
     this.mainVideo = new VideoItem(val);
     // this.mainVideo.
   };
+  @Output() select: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 

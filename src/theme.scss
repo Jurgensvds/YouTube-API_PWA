@@ -7,13 +7,14 @@
 
     --main-text-color: #C3C5C7;
 
-    --header-height: 80px;
+    --header-height: 70px;
     --tabs-height: 60px;
 }
 
 .mainContent{
-    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100vh);
     padding:10px;
     padding-bottom: calc(var(--tabs-height) + 10px);
+    padding-top: calc(var(--header-height) + 10px);
     background-color: var(--main-background-color);
 }

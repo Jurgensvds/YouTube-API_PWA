@@ -1,1 +1,25 @@
-<p>global-loader works!</p>
+<div *ngIf="loaderService.loading" class="globalLoaderContainer">
+    <div class="loaderBox">
+        <div class="loaderIcon">
+            <div class="
+                circleLoader 
+                animate__animated
+                animate__fadeInDown
+                animate__infinite
+                custom-delay-100ms"></div>
+            <div class="
+                circleLoader
+                animate__animated
+                animate__fadeInDown
+                animate__infinite
+                custom-delay-200ms"></div>
+            <div class="
+                circleLoader
+                animate__animated
+                animate__fadeInDown
+                animate__infinite
+                custom-delay-300ms"></div>
+        </div>
+        <h6>{{loaderService.loaderText}}</h6>
+    </div>
+</div>

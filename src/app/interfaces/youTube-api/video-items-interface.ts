@@ -4,12 +4,13 @@
 
 import { ChannelDetails } from "./channel-details-interface";
 
-type VideoItemTypes = 'kind' | 'etag' | 'id' | 'player' | 'snippet' | 'statistics' | 'contentDetails' | 'channelDetails';
+type VideoItemTypes = 'kind' | 'etag' | 'id' | 'active' | 'player' | 'snippet' | 'statistics' | 'contentDetails' | 'channelDetails';
 
 interface VideoItemInterface{
     kind: string;
     etag: string;
     id: string;
+    active: boolean;
     player: {embedHtml:string};
     snippet: Snippet;
     statistics: Statistics;
@@ -21,6 +22,7 @@ export class VideoItem{
     kind: string = '';
     etag: string = '';
     id: string = '';
+    active: boolean = true;
     player: {embedHtml:string} = {embedHtml:''};
     snippet: Snippet = new Snippet();
     statistics: Statistics = new Statistics();
@@ -31,6 +33,7 @@ export class VideoItem{
         this.kind = this.assignVariable('kind', newPageInfo, this.kind);
         this.etag = this.assignVariable('etag', newPageInfo, this.etag);
         this.id = this.assignVariable('id', newPageInfo, this.id);
+        this.active = this.assignVariable('active', newPageInfo, this.active);
         this.player = {...this.assignVariable('player', newPageInfo, this.player)};
         this.snippet = new Snippet(this.assignVariable('snippet', newPageInfo, this.snippet));
         this.statistics = new Statistics(this.assignVariable('statistics', newPageInfo, this.statistics));

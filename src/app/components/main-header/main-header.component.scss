@@ -5,6 +5,11 @@ header.mainHeader{
     justify-content: space-between;
     align-items: center;
     height: var(--header-height);
+    position: fixed;
+    width:100%;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
     .imageContainer{
         height:100%;
         padding:10px 0px;

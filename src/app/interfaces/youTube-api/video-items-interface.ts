@@ -2,7 +2,9 @@
  * VideoItem Interface for @interface Videos
  */
 
-type VideoItemTypes = 'kind' | 'etag' | 'id' | 'player' | 'snippet' | 'statistics' | 'contentDetails';
+import { ChannelDetails } from "./channel-details-interface";
+
+type VideoItemTypes = 'kind' | 'etag' | 'id' | 'player' | 'snippet' | 'statistics' | 'contentDetails' | 'channelDetails';
 
 interface VideoItemInterface{
     kind: string;
@@ -12,6 +14,7 @@ interface VideoItemInterface{
     snippet: Snippet;
     statistics: Statistics;
     contentDetails: ContentDetails;
+    channelDetails?: ChannelDetails;
 }
 
 export class VideoItem{
@@ -22,6 +25,7 @@ export class VideoItem{
     snippet: Snippet = new Snippet();
     statistics: Statistics = new Statistics();
     contentDetails: ContentDetails = new ContentDetails();
+    channelDetails?: ChannelDetails = new ChannelDetails();
 
     constructor(newPageInfo?: VideoItemInterface){
         this.kind = this.assignVariable('kind', newPageInfo, this.kind);
@@ -31,6 +35,7 @@ export class VideoItem{
         this.snippet = new Snippet(this.assignVariable('snippet', newPageInfo, this.snippet));
         this.statistics = new Statistics(this.assignVariable('statistics', newPageInfo, this.statistics));
         this.contentDetails = new ContentDetails(this.assignVariable('contentDetails', newPageInfo, this.contentDetails));
+        this.channelDetails = new ChannelDetails(this.assignVariable('channelDetails', newPageInfo, this.channelDetails));
     }
 
     private assignVariable(key:VideoItemTypes, object:VideoItemInterface | undefined, defaultVal: any){
@@ -44,11 +49,11 @@ export class VideoItem{
     getThumbnail(size:number = 5){
         const t = this.snippet.thumbnails;
         return (
-            t.maxres.url !== '' && size === 5 ? t.maxres.url :
-            t.standard.url !== '' && size >= 4 ? t.standard.url :
-            t.high.url !== '' && size >= 3 ? t.high.url :
-            t.medium.url !== '' && size >= 2 ? t.medium.url :
-            t.default.url !== '' && size >= 1 ? t.default.url : '../../../assets/mainLogo.svg'
+            (t.maxres && t.maxres.url !== '') && size === 5 ? t.maxres.url :
+            (t.standard && t.standard.url !== '') && size >= 4 ? t.standard.url :
+            (t.high && t.high.url !== '') && size >= 3 ? t.high.url :
+            (t.medium && t.medium.url !== '') && size >= 2 ? t.medium.url :
+            (t.default && t.default.url !== '') && size >= 1 ? t.default.url : '../../../assets/mainLogo.svg'
         );
     }
  }

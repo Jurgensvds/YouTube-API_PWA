@@ -7,6 +7,7 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { MainVideoViewerComponent } from './main-video-viewer/main-video-viewer.component';
 import { FormatViews } from '../pipes/formatNumber';
+import { GlobalLoaderComponent } from './global-loader/global-loader.component';
 
 export function playerFactory() {
   return player;
@@ -16,7 +17,8 @@ const componentsList = [
   MainHeaderComponent,
   SplashScreenComponent, 
   MainVideoViewerComponent,
-  FormatViews
+  FormatViews, 
+  GlobalLoaderComponent
 ]
 
 const materialModules = [

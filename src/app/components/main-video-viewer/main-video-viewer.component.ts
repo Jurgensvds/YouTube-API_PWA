@@ -13,13 +13,14 @@ export class MainVideoViewerComponent implements OnInit {
 
   @Input() set video(val: VideoItem){
     this.mainVideo = new VideoItem(val);
-    // this.mainVideo.snippet.title
+    // this.mainVideo.
   };
 
   constructor() { }
 
   ngOnInit(): void {
     // console.log(this.mainVideo)
+    // this.mainVideo.channelDetails?.getThumbnail(5)
   }
 
   ngAfterViewChecked(): void {

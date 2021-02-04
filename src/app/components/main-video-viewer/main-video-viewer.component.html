@@ -7,6 +7,16 @@
             <h4>{{mainVideo.snippet.title}}</h4>
             <span>{{mainVideo.statistics.viewCount | formatViews:'1.0-1'}} Views</span>
         </div>
-        <div class="rightContent"></div>
+        <div class="rightContent">
+            <div class="creatorDetails">
+                <div class="textDetails">
+                    <h5>{{mainVideo.channelDetails?.title}}</h5>
+                    <span>{{mainVideo.channelDetails?.subscriberCount | formatViews:'1.0-1'}} subscribers</span>
+                </div>
+                <div class="profileImage">
+                    <img [src]="mainVideo.channelDetails?.getThumbnail(2)" alt="">
+                </div>
+            </div>
+        </div>
     </div>
 </div>

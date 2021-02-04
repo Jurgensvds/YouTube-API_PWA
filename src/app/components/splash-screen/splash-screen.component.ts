@@ -11,6 +11,7 @@ export class SplashScreenComponent implements OnInit {
   @Output() removeSplash: EventEmitter<boolean> = new EventEmitter();
 
   animationPlayed: boolean = false;
+  destroy: boolean = false;
 
   options: AnimationOptions = {
     loop: false,
@@ -23,6 +24,7 @@ export class SplashScreenComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.backupRemove();
   }
 
   animationCreated(animationItem: AnimationItem): void {
@@ -36,5 +38,17 @@ export class SplashScreenComponent implements OnInit {
     setTimeout(() => {
       this.removeSplash.emit(true);
     },1000);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy = true;
+  }
+
+  backupRemove(){
+    setTimeout(() => {
+      if(!this.destroy){
+        this.removeSplash.emit(true);
+      }
+    }, 5000)
   }
 }

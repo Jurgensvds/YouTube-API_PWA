@@ -1,5 +1,8 @@
 <header class="mainHeader">
     <div class="imageContainer">
+        <mat-icon 
+            *ngIf="headerService.showBackButton" 
+            (click)="headerService.buttonClicked()">arrow_back</mat-icon>
         <img src="../../../assets/mainLogo.svg" alt="">
     </div>
     <div class="searchBox">

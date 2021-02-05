@@ -1,22 +1,58 @@
-<div (window:resize)="setThumbnailHeight()" (click)="select.emit()" class="videoViewer">
-    <div #thumbnail class="thumbnail">
-        <img [src]="mainVideo.getThumbnail(3)" alt="">
-    </div>
-    <div class="videoDetails">
-        <div class="leftContent">
-            <h4>{{mainVideo.snippet.title}}</h4>
-            <span>{{mainVideo.statistics.viewCount | formatViews:'1.0-1'}} Views</span>
-        </div>
-        <div class="rightContent">
-            <div class="creatorDetails">
-                <div class="textDetails">
-                    <h5>{{mainVideo.channelDetails?.title}}</h5>
-                    <span>{{mainVideo.channelDetails?.subscriberCount | formatViews:'1.0-1'}} subscribers</span>
+<div (window:resize)="setThumbnailHeight()" (click)="selectVideo()" class="videoViewer">
+    <div #thumbnail class="playVideoSection">
+        <div *ngIf="!playVideo" class="thumbnail">
+            <img [src]="mainVideo.getThumbnail(3)" alt="">
+            <!-- <div *ngIf="selectedVideo" class="playOverlay" (click)="loadVideo()">
+                <div class="iconContainer">
+                    <mat-icon>play_arrow</mat-icon>
                 </div>
-                <div class="profileImage">
-                    <img [src]="mainVideo.channelDetails?.getThumbnail(2)" alt="">
+            </div> -->
+        </div>
+        <div *ngIf="playVideo" #videoPlayer class="videoPlayer">
+        </div>
+    </div>
+    <div class="allDetails">
+        <div *ngIf="selectedVideo" class="likeShareBanners">
+            <div class="likeSection">
+                <div class="iconSection">
+                    <div class="thumbsUp">
+                        <mat-icon>thumb_up_off_alt</mat-icon>
+                        <span>{{mainVideo.statistics.likeCount | formatViews:'1.0-1'}}</span>
+                    </div>
+                    <div class="thumbsDown">
+                        <mat-icon>thumb_down_off_alt</mat-icon>
+                        <span>{{mainVideo.statistics.dislikeCount | formatViews:'1.0-1'}}</span>
+                    </div>
+                </div>
+                <div class="lineAmount">
+                    <div [style.width]="getLineWidth()" class="line"></div>
                 </div>
             </div>
+            <div class="favouriteSection">
+                <mat-icon [style.color]="isFavourite() ? 'yellow' : 'grey'">star</mat-icon>
+                <span>Favourite</span>
+            </div>
+        </div>
+        <div class="videoDetails">
+            <div class="leftContent">
+                <h4>{{mainVideo.snippet.title}}</h4>
+                <span>{{mainVideo.statistics.viewCount | formatViews:'1.0-1'}} Views</span>
+            </div>
+            <div class="rightContent">
+                <div class="creatorDetails">
+                    <div class="textDetails">
+                        <h5>{{mainVideo.channelDetails?.title}}</h5>
+                        <span>{{mainVideo.channelDetails?.subscriberCount | formatViews:'1.0-1'}} subscribers</span>
+                    </div>
+                    <div class="profileImage">
+                        <img [src]="mainVideo.channelDetails?.getThumbnail(2)" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="selectedVideo" class="videoDesctiption">
+            <h5>Description:</h5>
+            <p>{{mainVideo.channelDetails?.description}}</p>
         </div>
     </div>
 </div>

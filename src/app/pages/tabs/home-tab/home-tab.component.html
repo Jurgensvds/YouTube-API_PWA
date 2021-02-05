@@ -5,7 +5,7 @@
                 [@outAnimation]
                 *ngIf="item.active"
                 [video]="item"
-                (select)="selectVideo(item)"
+                (select)="selectVideo($event, item)"
             ></app-main-video-viewer>
         </ng-container>
     </div>

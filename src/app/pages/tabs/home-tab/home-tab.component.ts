@@ -15,6 +15,14 @@ import { YouTubeService } from '@services/youTube/you-tube.service';
       'outAnimation', 
       [
         transition(
+          ':enter', 
+          [
+            style({ opacity: 0 }),
+            animate('300ms ease-in', 
+                    style({ opacity: 1 }))
+          ]
+        ),
+        transition(
           ':leave', 
           [
             style({ opacity: 1 }),
@@ -53,15 +61,14 @@ export class HomeTabComponent implements OnInit {
       for(let vid of this.videos.items){
         vid.active = true;
       }
-      console.log(this.videos)
     }).catch((err) => {
       console.log(err);
     })
   }
 
-  selectVideo(item: VideoItem){
+  selectVideo(select: boolean, item: VideoItem){
     for(let item of this.videos.items){
-      item.active = false;
+      item.active = !select;
     }
     item.active = true;
   }

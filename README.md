@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Setup
 
 Make sure you have the latest stable version of nodeJS.
-Navigate into the root folder and run `npm i` to install the project dependancies
+Navigate into the root folder and run `npm i` to install the project dependencies
 
 ## Development server
 

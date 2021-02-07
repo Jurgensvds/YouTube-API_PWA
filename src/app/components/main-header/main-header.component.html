@@ -4,6 +4,24 @@
             *ngIf="headerService.showBackButton" 
             (click)="headerService.buttonClicked()">arrow_back</mat-icon>
         <img src="../../../assets/mainLogo.svg" alt="">
+
+        
+        <div *ngIf="screenService.windowWidth > 900" class="menuNav">
+            <ul class="navItems">
+                <li 
+                    (click)="changeNav('home')" 
+                    class="navButton"
+                    [style.color]="tabNavService.activeTab === 'home' ? 'var(--primary-color)' : 'white'">Home</li>
+                <li 
+                    (click)="changeNav('history')" 
+                    class="navButton"
+                    [style.color]="tabNavService.activeTab === 'history' ? 'var(--primary-color)' : 'white'">History</li>
+                <li 
+                    (click)="changeNav('favourites')" 
+                    class="navButton"
+                    [style.color]="tabNavService.activeTab === 'favourites' ? 'var(--primary-color)' : 'white'">Favourite</li>
+            </ul>
+        </div>
     </div>
     <div *ngIf="headerService.searchButton" class="searchBox">
         <input 

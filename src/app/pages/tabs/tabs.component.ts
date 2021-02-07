@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { VideoSearch } from '@interfaces/youTube-api/videos-interface';
 import { HeaderNavService } from '@services/headerNav/header-nav.service';
+import { ScreenService } from '@services/screen/screen.service';
 import { TabNavService } from '@services/tabNav/tab-nav.service';
 import { YouTubeService } from '@services/youTube/you-tube.service';
 
@@ -34,7 +35,8 @@ export class TabsComponent implements OnInit {
 
   constructor(
     public tabNav: TabNavService,
-    public headerService: HeaderNavService
+    public headerService: HeaderNavService,
+    public screenService: ScreenService
   ) { }
 
   async ngOnInit() {

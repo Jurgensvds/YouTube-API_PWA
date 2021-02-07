@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ChannelDetails } from '@interfaces/youTube-api/channel-details-interface';
+import { VideoItem } from '@interfaces/youTube-api/video-items-interface';
 import { Videos } from '@interfaces/youTube-api/videos-interface';
 import { HeaderNavService } from '@services/headerNav/header-nav.service';
 import { HistoryFavouritesService } from '@services/history-favourites/history-favourites.service';
@@ -39,6 +40,7 @@ export class HistoryTabComponent implements OnInit {
 
   videos: Videos = new Videos();
   loadingVideos: Videos = new Videos();
+  videoSelected: boolean = false;
 
   constructor(
     private favouriteService: HistoryFavouritesService,
@@ -57,7 +59,7 @@ export class HistoryTabComponent implements OnInit {
     this.loaderService.loaderText = "Getting history";
     this.loaderService.loading = true;
     this.youTubeService.getVideosByIds(this.favouriteService.getAllIDs('history')).then(async (videos) => {
-      this.populateVideos(videos);
+      await this.populateVideos(videos);
       this.loaderService.loading = false;
     }).catch((err) => {
       console.log(err);
@@ -78,9 +80,13 @@ export class HistoryTabComponent implements OnInit {
     for(let vid of this.videos.items){
       vid.active = true;
     }
-}
+  }
 
-  removeVideo(vidID:string = 'newId'){
-    this.favouriteService.removeVideo(vidID, 'history')
+  selectVideo(select: boolean, item: VideoItem){
+    this.videoSelected = select;
+    for(let item of this.videos.items){
+      item.active = !select;
+    }
+    item.active = true;
   }
 }

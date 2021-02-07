@@ -9,7 +9,7 @@
     </section>
     
     <!--Bottom Tab Navigation-->
-    <section class="tabs-selector">
+    <section *ngIf="screenService.windowWidth <= 900" class="tabs-selector">
         <div class="tabsContainer">
             <div (click)="setNav('history')" class="tab tab1">
                 <mat-icon>history</mat-icon>

@@ -2,12 +2,13 @@
     <div class="sectionHeading">
         <h4>Your favourites:</h4>
     </div>
-    <div class="videoSection">
+    <div [ngClass]="{'videoSection': true, 'viewVideo': videoSelected}">
         <ng-container *ngFor="let item of videos.items">
             <app-main-video-viewer
                 [@outAnimation]
                 *ngIf="item.active"
                 [video]="item"
+                (select)="selectVideo($event, item)"
             ></app-main-video-viewer>
         </ng-container>
     </div>

@@ -1,6 +1,10 @@
-import { animate, group, sequence, style, transition, trigger } from '@angular/animations';
+import { animate, sequence, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HeaderNavService } from '@services/headerNav/header-nav.service';
+import { ScreenService } from '@services/screen/screen.service';
+import { TabNavService } from '@services/tabNav/tab-nav.service';
+
+type navTabs = 'history' | 'home' | 'favourites';
 
 @Component({
   selector: 'app-main-header',
@@ -40,7 +44,9 @@ export class MainHeaderComponent implements OnInit {
   searchOpen:boolean = false;
 
   constructor(
-    public headerService: HeaderNavService
+    public headerService: HeaderNavService,
+    public screenService: ScreenService,
+    public tabNavService: TabNavService
   ) { }
 
   ngOnInit(): void {
@@ -62,5 +68,9 @@ export class MainHeaderComponent implements OnInit {
 
   doSearch(searchText:string){
     this.headerService.executeSearch(searchText)
+  }
+
+  changeNav(tab:navTabs){
+    this.tabNavService.activeTab = tab;
   }
 }

@@ -10,6 +10,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 export function playerFactory() {
   return player;

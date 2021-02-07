@@ -1,5 +1,8 @@
 <section class="homeTabSection">
-    <div class="videoSection">
+    <div class="sectionHeading">
+        <h4>{{sectionHeading}}:</h4>
+    </div>
+    <div [ngClass]="{'videoSection': true, 'viewVideo': videoSelected}">
         <ng-container *ngFor="let item of videos.items">
             <app-main-video-viewer
                 [@outAnimation]
@@ -8,5 +11,29 @@
                 (select)="selectVideo($event, item)"
             ></app-main-video-viewer>
         </ng-container>
+    </div>
+    <div *ngIf="!videoSelected" class="loadMoreButton">
+        <button *ngIf="!loadingMore" (click)="pageModeHome ? loadMorePopular() : loadMoreSearch()" class="btn" color="primary">Load more</button>
+        <h6 *ngIf="loadingMore">
+            Loading more
+            <span
+                class="
+                animate__animated
+                animate__fadeIn
+                animate__infinite
+                custom-delay-100ms" >.</span>
+            <span
+                class="
+                animate__animated
+                animate__fadeIn
+                animate__infinite
+                custom-delay-200ms" >.</span>
+            <span
+                class="
+                animate__animated
+                animate__fadeIn
+                animate__infinite
+                custom-delay-300ms" >.</span>
+        </h6>
     </div>
 </section>

@@ -5,7 +5,17 @@
             (click)="headerService.buttonClicked()">arrow_back</mat-icon>
         <img src="../../../assets/mainLogo.svg" alt="">
     </div>
-    <div class="searchBox">
-        <mat-icon>search</mat-icon>
+    <div *ngIf="headerService.searchButton" class="searchBox">
+        <input 
+            *ngIf="searchOpen" 
+            [@searchBox]
+            #searchInput
+            placeholder="Search" 
+            type="text"
+            (keydown)="onKeydown($event)">
+        <div *ngIf="searchOpen" (click)="toggleSearchBar()" class="closeButton">
+            <mat-icon>close</mat-icon>
+        </div>
+        <mat-icon (click)="searchOpen  ? searchButtonClicked(searchInput) : toggleSearchBar()">search</mat-icon>
     </div>
 </header>

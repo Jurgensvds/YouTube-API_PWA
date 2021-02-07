@@ -13,7 +13,9 @@ header.mainHeader{
     .imageContainer{
         height:100%;
         padding:10px 0px;
+        width:135px;
         mat-icon{
+            cursor: pointer;
             color: white;
             margin-right: 10px;
         }
@@ -27,7 +29,27 @@ header.mainHeader{
         color: var(--primary-color);
     }
     .searchBox{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 65%;
+        input{
+            border: none;
+            padding: 5px 30px 5px 10px;
+            border-radius: 5px;
+            max-width:300px;
+            width:90%;
+            background-color:white;
+        }
+        .closeButton{
+            position: absolute;
+            right:45px;
+            mat-icon{
+                color: rgb(27, 27, 27);
+            }
+        }
         mat-icon{
+            margin-left: 10px;
             display: flex;
             justify-content: center;
             align-items: center;

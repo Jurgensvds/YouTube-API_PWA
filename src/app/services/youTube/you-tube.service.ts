@@ -14,20 +14,30 @@ export class YouTubeService {
 
   constructor(private http: HttpClient) { }
 
-  getVideosBySearch(searchString: string, maxResults:string = '20'){
+  async getVideosBySearch(searchString: string, pageKey:string = '', maxResults:string = '10'){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     
     let params = new HttpParams();
     params = params.append("key", KEY);
-    params = params.append("part", "player, snippet, statistics, contentDetails");
+    params = params.append("part", "snippet");
+    params = params.append("type", "video");
     params = params.append("q", searchString);
+    params = params.append("pageToken", pageKey);
     params = params.append("maxResults", maxResults);
+    params = params.append("order", 'relevance');
 
-    return this.http.get<VideoSearch>(`${URL}/search`, {params: params}).toPromise();
+    const allVideos = await this.http.get<VideoSearch>(`${URL}/search`, {params: params}).toPromise();
+    const nextPageKey = allVideos.nextPageToken;
+    // console.log(allVideos);
+    const allVideoIds = allVideos.items.map(item => {return item.id.videoId});
+    // console.log(allVideoIds)
+    let vids: Videos = await this.getVideosByIds(allVideoIds);
+    vids.nextPageToken = nextPageKey
+    return vids;
   }
 
-  getMostPopularVideos(region: string = 'au', maxResults:string = '20'){
+  getMostPopularVideos(pageKey:string = '', region: string = 'au', maxResults:string = '10'){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -37,6 +47,17 @@ export class YouTubeService {
     params = params.append("maxResults", maxResults);
     params = params.append("chart", "mostPopular");
     params = params.append("regionCode", region);
+    params = params.append("pageToken", pageKey);
+
+    return this.http.get<Videos>(`${URL}/videos`, {params: params}).toPromise();
+  }
+
+  getVideosByIds(videoIds:string[], maxResults:string = '10'){
+    let params = new HttpParams();
+    params = params.append("key", KEY);
+    params = params.append("part", "player, snippet, statistics, contentDetails");
+    params = params.append("maxResults", maxResults);
+    params = params.append("id", videoIds.join());
 
     return this.http.get<Videos>(`${URL}/videos`, {params: params}).toPromise();
   }

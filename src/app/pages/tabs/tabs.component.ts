@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { VideoSearch } from '@interfaces/youTube-api/videos-interface';
+import { HeaderNavService } from '@services/headerNav/header-nav.service';
 import { TabNavService } from '@services/tabNav/tab-nav.service';
 import { YouTubeService } from '@services/youTube/you-tube.service';
 
@@ -32,7 +33,8 @@ export class TabsComponent implements OnInit {
   showSplash:boolean = true;
 
   constructor(
-    public tabNav: TabNavService
+    public tabNav: TabNavService,
+    public headerService: HeaderNavService
   ) { }
 
   async ngOnInit() {
@@ -44,6 +46,7 @@ export class TabsComponent implements OnInit {
   }
 
   setNav(selectedTab: navTabs){
+    this.headerService.searchButton = selectedTab === 'home' ? true : false;
     this.tabNav.activeTab = selectedTab
   }
 

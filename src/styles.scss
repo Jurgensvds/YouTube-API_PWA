@@ -41,6 +41,30 @@ $YouTube-API-theme: mat-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.btn{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  &[color=primary]{
+    color:white;
+    background-color: var(--primary-color);
+  }
+}
+
+.sectionHeading{
+  padding:5px;
+  display: flex;
+  justify-content: center;
+  h4{
+    margin: 0px;
+    color:white;
+    margin-bottom: 10px;
+    padding:0px 10px;
+    padding-bottom: 5px;
+    border-bottom: solid 1px var(--primary-color);
+  }
+}
+
 .custom-delay-100ms{
   animation-delay: 100ms;
 }

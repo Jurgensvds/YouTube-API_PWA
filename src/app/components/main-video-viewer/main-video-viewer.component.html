@@ -1,4 +1,4 @@
-<div (window:resize)="setThumbnailHeight()" (click)="selectVideo()" class="videoViewer">
+<div (window:resize)="setThumbnailHeight()" (click)="selectedVideo ? 'null' : selectVideo()" class="videoViewer">
     <div #thumbnail class="playVideoSection">
         <div *ngIf="!playVideo" class="thumbnail">
             <img [src]="mainVideo.getThumbnail(3)" alt="">
@@ -28,7 +28,7 @@
                     <div [style.width]="getLineWidth()" class="line"></div>
                 </div>
             </div>
-            <div class="favouriteSection">
+            <div class="favouriteSection" (click)="manageFavourite()">
                 <mat-icon [style.color]="isFavourite() ? 'yellow' : 'grey'">star</mat-icon>
                 <span>Favourite</span>
             </div>
